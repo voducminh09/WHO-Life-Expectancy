@@ -12,6 +12,7 @@ library(tidyverse)
 library(lubridate)
 library(forcats)
 library(gridExtra)
+library(reshape2)
 ```
 
 
@@ -49,19 +50,19 @@ colnames(data)
 	<li>'Country'</li>
 	<li>'Year'</li>
 	<li>'Status'</li>
-	<li>'lifeexp'</li>
-	<li>'admort'</li>
-	<li>'infmort'</li>
+	<li>'Life.expectancy'</li>
+	<li>'Adult.Mortality'</li>
+	<li>'infant.deaths'</li>
 	<li>'Alcohol'</li>
-	<li>'totexp'</li>
-	<li>'HBV'</li>
+	<li>'percentage.expenditure'</li>
+	<li>'Hepatitis.B'</li>
 	<li>'Measles'</li>
 	<li>'BMI'</li>
-	<li>'u5deaths'</li>
+	<li>'under.five.deaths'</li>
 	<li>'Polio'</li>
-	<li>'perc.exp'</li>
+	<li>'Total.expenditure'</li>
 	<li>'Diphtheria'</li>
-	<li>'HIV'</li>
+	<li>'HIV.AIDS'</li>
 	<li>'GDP'</li>
 	<li>'Population'</li>
 	<li>'thinness..1.19.years'</li>
@@ -392,6 +393,7 @@ ggplot(by_country,aes(x=Country,y=avg_infmort))+
     ylab('Average Infant Mortality per 1000')+
     ggtitle("Average Infant Mortality per 1000 by Country")+
     theme(plot.title = element_text(hjust = 0.5))
+#Some issues with India data
 ```
 
 
@@ -406,6 +408,7 @@ ggplot(by_country,aes(x=Country,y=avg_admort))+
     ylab('Average Adult Mortality per 1000')+
     ggtitle("Average Adult Mortality per 1000 by Country")+
     theme(plot.title = element_text(hjust = 0.5))
+#Some issues with India data
 ```
 
 
@@ -431,8 +434,8 @@ ggplot(by_country,aes(x=Country,y=avg_Alcohol))+
 ggplot(by_country,aes(x=Country,y=avg_perc.exp))+
     geom_bar(aes(reorder(Country,avg_perc.exp),avg_perc.exp),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Percent of GDP on expenditure on health')+
-    ggtitle("Percent of GDP on expenditure on health by Country")+
+    ylab('Average Percent of GDP on expenditure on health')+
+    ggtitle("Average Percent of GDP on expenditure on health by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -445,8 +448,8 @@ ggplot(by_country,aes(x=Country,y=avg_perc.exp))+
 ggplot(by_country,aes(x=Country,y=avg_HBV))+
     geom_bar(aes(reorder(Country,avg_HBV),avg_HBV),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('HBV coverage percent')+
-    ggtitle("HBV coverage percent by Country")+
+    ylab('Average HBV coverage percent')+
+    ggtitle("Average HBV coverage percent by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -459,44 +462,13 @@ ggplot(by_country,aes(x=Country,y=avg_HBV))+
 ggplot(by_country,aes(x=Country,y=avg_Measles))+
     geom_bar(aes(reorder(Country,avg_Measles),avg_Measles),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Measles per 100000')+
-    ggtitle("Measles per 100000 by Country")+
+    ylab('Average Measles per 100000')+
+    ggtitle("Average Measles per 100000 by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
 ![png](output_20_0.png)
-
-
-
-```R
-colnames(by_country)
-```
-
-
-<ol class=list-inline>
-	<li>'Country'</li>
-	<li>'avg_GDP'</li>
-	<li>'avg_lifeexp'</li>
-	<li>'avg_infmort'</li>
-	<li>'avg_admort'</li>
-	<li>'avg_Alcohol'</li>
-	<li>'avg_perc.exp'</li>
-	<li>'avg_HBV'</li>
-	<li>'avg_Measles'</li>
-	<li>'avg_BMI'</li>
-	<li>'avg_u5deaths'</li>
-	<li>'avg_Polio'</li>
-	<li>'avg_totexp'</li>
-	<li>'avg_Diphtheria'</li>
-	<li>'avg_HIV'</li>
-	<li>'avg_Population'</li>
-	<li>'avg_thinness..1.19.years'</li>
-	<li>'avg_thinness.5.9.years'</li>
-	<li>'avg_Income.composition.of.resources'</li>
-	<li>'avg_Schooling'</li>
-</ol>
-
 
 
 
@@ -510,7 +482,7 @@ ggplot(by_country,aes(x=Country,y=avg_BMI))+
 ```
 
 
-![png](output_22_0.png)
+![png](output_21_0.png)
 
 
 
@@ -518,13 +490,14 @@ ggplot(by_country,aes(x=Country,y=avg_BMI))+
 ggplot(by_country,aes(x=Country,y=avg_u5deaths))+
     geom_bar(aes(reorder(Country,avg_u5deaths),avg_u5deaths),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Number of under-5-death per 1000')+
-    ggtitle("Number of under-5-death per 1000 by Country")+
+    ylab('Average Number of under-5-death per 1000')+
+    ggtitle("Average Number of under-5-death per 1000 by Country")+
     theme(plot.title = element_text(hjust = 0.5))
+#Some issues with India data
 ```
 
 
-![png](output_23_0.png)
+![png](output_22_0.png)
 
 
 
@@ -532,13 +505,13 @@ ggplot(by_country,aes(x=Country,y=avg_u5deaths))+
 ggplot(by_country,aes(x=Country,y=avg_Polio))+
     geom_bar(aes(reorder(Country,avg_Polio),avg_Polio),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Polio coverage percent')+
-    ggtitle("Polio coverage percent by Country")+
+    ylab('Average Polio coverage percent')+
+    ggtitle("Average Polio coverage percent by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_24_0.png)
+![png](output_23_0.png)
 
 
 
@@ -552,38 +525,7 @@ ggplot(by_country,aes(x=Country,y=avg_totexp))+
 ```
 
 
-![png](output_25_0.png)
-
-
-
-```R
-colnames(by_country)
-```
-
-
-<ol class=list-inline>
-	<li>'Country'</li>
-	<li>'avg_GDP'</li>
-	<li>'avg_lifeexp'</li>
-	<li>'avg_infmort'</li>
-	<li>'avg_admort'</li>
-	<li>'avg_Alcohol'</li>
-	<li>'avg_perc.exp'</li>
-	<li>'avg_HBV'</li>
-	<li>'avg_Measles'</li>
-	<li>'avg_BMI'</li>
-	<li>'avg_u5deaths'</li>
-	<li>'avg_Polio'</li>
-	<li>'avg_totexp'</li>
-	<li>'avg_Diphtheria'</li>
-	<li>'avg_HIV'</li>
-	<li>'avg_Population'</li>
-	<li>'avg_thinness..1.19.years'</li>
-	<li>'avg_thinness.5.9.years'</li>
-	<li>'avg_Income.composition.of.resources'</li>
-	<li>'avg_Schooling'</li>
-</ol>
-
+![png](output_24_0.png)
 
 
 
@@ -591,13 +533,13 @@ colnames(by_country)
 ggplot(by_country,aes(x=Country,y=avg_Diphtheria))+
     geom_bar(aes(reorder(Country,avg_Diphtheria),avg_Diphtheria),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('DTP3 coverage percent')+
-    ggtitle("DTP3 coverage percent by Country")+
+    ylab('Average DTP3 coverage percent')+
+    ggtitle("Average DTP3 coverage percent by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_27_0.png)
+![png](output_25_0.png)
 
 
 
@@ -605,13 +547,13 @@ ggplot(by_country,aes(x=Country,y=avg_Diphtheria))+
 ggplot(by_country,aes(x=Country,y=avg_HIV))+
     geom_bar(aes(reorder(Country,avg_HIV),avg_HIV),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Death per 1000 live birth with HIV')+
-    ggtitle("Death per 1000 live birth with HIV by Country")+
+    ylab('Average Death per 1000 live birth with HIV')+
+    ggtitle("Average Death per 1000 live birth with HIV by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_28_0.png)
+![png](output_26_0.png)
 
 
 
@@ -622,42 +564,11 @@ ggplot(by_country,aes(x=Country,y=avg_Population))+
     ylab('Average Population')+
     ggtitle("Average Population by Country")+
     theme(plot.title = element_text(hjust = 0.5))
-#We can identify the lack of data from China
+#We can identify the false reported data from China
 ```
 
 
-![png](output_29_0.png)
-
-
-
-```R
-colnames(by_country)
-```
-
-
-<ol class=list-inline>
-	<li>'Country'</li>
-	<li>'avg_GDP'</li>
-	<li>'avg_lifeexp'</li>
-	<li>'avg_infmort'</li>
-	<li>'avg_admort'</li>
-	<li>'avg_Alcohol'</li>
-	<li>'avg_perc.exp'</li>
-	<li>'avg_HBV'</li>
-	<li>'avg_Measles'</li>
-	<li>'avg_BMI'</li>
-	<li>'avg_u5deaths'</li>
-	<li>'avg_Polio'</li>
-	<li>'avg_totexp'</li>
-	<li>'avg_Diphtheria'</li>
-	<li>'avg_HIV'</li>
-	<li>'avg_Population'</li>
-	<li>'avg_thinness..1.19.years'</li>
-	<li>'avg_thinness.5.9.years'</li>
-	<li>'avg_Income.composition.of.resources'</li>
-	<li>'avg_Schooling'</li>
-</ol>
-
+![png](output_27_0.png)
 
 
 
@@ -665,13 +576,13 @@ colnames(by_country)
 ggplot(by_country,aes(x=Country,y=avg_thinness..1.19.years))+
     geom_bar(aes(reorder(Country,avg_thinness..1.19.years),avg_thinness..1.19.years),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Prevalence of thinness among children for Age 10 to 19(%)')+
-    ggtitle("Prevalence of thinness among children for Age 10 to 19(%) by Country")+
+    ylab('Average prevalence of children thinness Age 10 to 19(%)')+
+    ggtitle("Average prevalence of children thinness Age 10 to 19(%) by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_31_0.png)
+![png](output_28_0.png)
 
 
 
@@ -679,13 +590,13 @@ ggplot(by_country,aes(x=Country,y=avg_thinness..1.19.years))+
 ggplot(by_country,aes(x=Country,y=avg_thinness.5.9.years))+
     geom_bar(aes(reorder(Country,avg_thinness.5.9.years),avg_thinness.5.9.years),stat="identity", colour="white", fill="#f68060", alpha=1, width=.5)+
     coord_flip()+
-    ylab('Prevalence of thinness among children for Age 5 to 9(%)')+
-    ggtitle("Prevalence of thinness among children for Age 5 to 9(%) by Country")+
+    ylab('Average Prevalence of children thinness Age 5 to 9(%)')+
+    ggtitle("Average Prevalence of children thinness Age 5 to 9(%) by Country")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_32_0.png)
+![png](output_29_0.png)
 
 
 
@@ -699,7 +610,7 @@ ggplot(by_country,aes(x=Country,y=avg_Income.composition.of.resources))+
 ```
 
 
-![png](output_33_0.png)
+![png](output_30_0.png)
 
 
 
@@ -713,40 +624,7 @@ ggplot(by_country,aes(x=Country,y=avg_Schooling))+
 ```
 
 
-![png](output_34_0.png)
-
-
-
-```R
-colnames(data)
-```
-
-
-<ol class=list-inline>
-	<li>'Country'</li>
-	<li>'Year'</li>
-	<li>'Status'</li>
-	<li>'lifeexp'</li>
-	<li>'admort'</li>
-	<li>'infmort'</li>
-	<li>'Alcohol'</li>
-	<li>'perc.exp'</li>
-	<li>'HBV'</li>
-	<li>'Measles'</li>
-	<li>'BMI'</li>
-	<li>'u5deaths'</li>
-	<li>'Polio'</li>
-	<li>'totexp'</li>
-	<li>'Diphtheria'</li>
-	<li>'HIV'</li>
-	<li>'GDP'</li>
-	<li>'Population'</li>
-	<li>'thinness..1.19.years'</li>
-	<li>'thinness.5.9.years'</li>
-	<li>'Income.composition.of.resources'</li>
-	<li>'Schooling'</li>
-</ol>
-
+![png](output_31_0.png)
 
 
 
@@ -756,7 +634,7 @@ ggplot(by_country,aes(x=avg_lifeexp))+geom_histogram(bins=40,fill="green")+
 ```
 
 
-![png](output_36_0.png)
+![png](output_32_0.png)
 
 
 
@@ -802,12 +680,13 @@ ggplot(by_year,aes(x=Year,y=avg_lifeexp))+
     geom_bar(stat="identity", colour="white", fill="#c24823", alpha=1, width=.5)+
     coord_flip()+
     ylab('Average Life Expectancy')+
+    xlab('Year')+
     ggtitle("Average Life Expectancy by year")+
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
-![png](output_38_0.png)
+![png](output_34_0.png)
 
 
 
@@ -827,7 +706,7 @@ ggplot(melted)+
 ```
 
 
-![png](output_39_0.png)
+![png](output_35_0.png)
 
 
 
@@ -842,7 +721,7 @@ ggtitle("Avg Life Expectancy and Avg GDP relationship",subtitle="by country")
 ```
 
 
-![png](output_41_0.png)
+![png](output_37_0.png)
 
 
 
@@ -862,7 +741,7 @@ ggplot(data,aes(x=GDP,y=lifeexp,color=Status))+facet_wrap(~Year)+geom_point()+sc
 ```
 
 
-![png](output_43_0.png)
+![png](output_39_0.png)
 
 
 
@@ -872,7 +751,7 @@ ggtitle("Avg Life Expectancy and Avg BMI relationship",subtitle="by country")
 ```
 
 
-![png](output_44_0.png)
+![png](output_40_0.png)
 
 
 
@@ -891,7 +770,7 @@ ggplot(data,aes(x=BMI,y=lifeexp,color=Status))+facet_wrap(~Year)+geom_point()+
 ```
 
 
-![png](output_46_0.png)
+![png](output_42_0.png)
 
 
 
@@ -901,7 +780,7 @@ ggtitle("Avg Life Expectancy and Avg years in school relationship",subtitle="by 
 ```
 
 
-![png](output_47_0.png)
+![png](output_43_0.png)
 
 
 
@@ -920,7 +799,7 @@ ggplot(data,aes(x=Schooling,y=lifeexp,color=Status))+facet_wrap(~Year)+geom_poin
 ```
 
 
-![png](output_49_0.png)
+![png](output_45_0.png)
 
 
 
@@ -961,7 +840,7 @@ ggtitle("Avg Life Expectancy and Avg total expenditure on health",subtitle="by c
 ```
 
 
-![png](output_51_0.png)
+![png](output_47_0.png)
 
 
 
@@ -983,7 +862,7 @@ ggplot(data,aes(x=totexp,y=lifeexp,color=Status))+facet_wrap(~Year)+geom_point()
     "Transformation introduced infinite values in continuous x-axis"
 
 
-![png](output_53_1.png)
+![png](output_49_1.png)
 
 
 
@@ -994,7 +873,7 @@ ggtitle("Avg Life Expectancy and Avg HDI in terms of income composition of resou
 ```
 
 
-![png](output_54_0.png)
+![png](output_50_0.png)
 
 
 
@@ -1013,7 +892,7 @@ ggplot(data,aes(x=Income.composition.of.resources,y=lifeexp,color=Status))+facet
 ```
 
 
-![png](output_56_0.png)
+![png](output_52_0.png)
 
 
 
@@ -1032,7 +911,7 @@ ggplot(melted)+
 ```
 
 
-![png](output_57_0.png)
+![png](output_53_0.png)
 
 
 
